@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, "assets")
-from los import X, Z, compare_profile_los
+from los import X, Z, compare_profile_los, profile_los
 
 path = Path("assets/examples.json")
 examples = json.loads(path.read_text())
@@ -15,12 +15,13 @@ examples.update(x=X.tolist(), z=Z.tolist())
 for preset in examples["presets"]:
     comparisons = {step: compare_profile_los(*preset["inputs"], step=step)
                    for step in range(5, 51)}
-    preset["result"] = comparisons[25]["exact"]
+    preset["result"] = profile_los(*preset["inputs"], diagnostics=True)
     preset["samples"] = {step: {"sampled": result["sampled"], "samples": result["samples"]}
                          for step, result in comparisons.items()}
 path.write_text(json.dumps(examples, ensure_ascii=False, separators=(",", ":")) + "\n")
 PY
 python -B build-cover.py
+python -B build-lesson.py
 if command -v quarto >/dev/null; then
   quarto render
 else
@@ -32,11 +33,15 @@ from pathlib import Path
 Path("dist").mkdir(exist_ok=True)
 for name in ("index", "los", "laboratory"):
     source = Path(f"{name}.qmd").read_text()
-    source = re.sub(r"\{\{< include (includes/_[\w-]+\.md) >\}\}", lambda m: Path(m[1]).read_text(), source)
+    def expand(text):
+        return re.sub(r"\{\{< include (includes/_[\w-]+\.md) >\}\}",
+                      lambda m: expand(Path(m[1]).read_text()), text)
+    source = expand(source)
     subprocess.run(
         ["pandoc", "--from=markdown", "--to=html5", "--standalone", "--mathml",
          "--citeproc", "--metadata-file=_quarto.yml",
          "--lua-filter=filters/pseudocode.lua",
+         "--lua-filter=filters/article-refs.lua",
          "--template=article.html", "-o", f"dist/{name}.html"],
         input=source, text=True, check=True,
     )

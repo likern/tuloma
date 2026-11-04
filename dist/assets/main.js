@@ -41,6 +41,7 @@ let nextPoint = 0;
 let drag = null;
 let dirty = false;
 let evaluating = false;
+let lessonNode = null;
 const requests = new Map();
 
 function stopWorker(reason) {
@@ -132,12 +133,11 @@ function draw() {
 
   const [[ax, az], [bx, bz]] = [result.a, result.b];
   if (ax !== bx) {
-    const zAt = x => az + (bz-az)*(x-ax)/(bx-ax);
     mark('line', {x1:sx(ax), x2:sx(bx), y1:sy(az), y2:sy(bz), stroke:'var(--endpoint)', 'stroke-width':2});
-    for (const [from, to] of result.below) {
-      mark('line', {x1:sx(from), x2:sx(to), y1:sy(zAt(from)), y2:sy(zAt(to)),
+    for (const [from, zFrom, to, zTo] of result.below_segments ?? []) {
+      mark('line', {x1:sx(from), x2:sx(to), y1:sy(zFrom), y2:sy(zTo),
         stroke:'var(--panel)', 'stroke-width':3.8});
-      mark('line', {x1:sx(from), x2:sx(to), y1:sy(zAt(from)), y2:sy(zAt(to)),
+      mark('line', {x1:sx(from), x2:sx(to), y1:sy(zFrom), y2:sy(zTo),
         stroke:'var(--blocked)', 'stroke-width':2, 'stroke-dasharray':'5 3'});
     }
   }
@@ -177,12 +177,34 @@ function draw() {
   }
 
   const host = svg.closest('los-experiment');
+  const focused = result.diagnostics?.nodes.find(node => node.x === lessonNode);
+  if (focused) {
+    mark('line', {x1:view.sx(focused.x), x2:view.sx(focused.x), y1:view.sy(focused.z), y2:view.sy(focused.line_z), stroke:'var(--selected)', 'stroke-width':2});
+    mark('circle', {cx:view.sx(focused.x), cy:view.sy(focused.z), r:6, fill:'var(--panel)', stroke:'var(--selected)', 'stroke-width':2});
+  }
   if (host.paintChart) host.paintChart(svg, drawing);
   else svg.replaceChildren(drawing);
   $('.chart-wrap').classList.add('js-ready');
+  publishSnapshot();
 }
 
-const labels = {blocked:'Цель скрыта', touch:'Касание', visible:'Цель видна', same:'Совпадают координаты'};
+function publishSnapshot() {
+  if (data && result) document.dispatchEvent(new CustomEvent('los:result', {detail:{
+    result, x:data.x, z:renderedHeights, inputs:result.diagnostics?.inputs??[...inputs], source:active?'runtime':'preset'
+  }}));
+}
+document.addEventListener('los:request-state', publishSnapshot);
+document.addEventListener('los:select-node', event => {lessonNode = event.detail.x; draw();});
+document.addEventListener('los:reset-example', () => {
+  if (!data) return;
+  setPreset(data.presets[0]); setStep(25); setMode(false);
+});
+document.addEventListener('los:compare-example', event => {
+  if (!data) return;
+  setPreset(data.presets[0]); setStep(event.detail.step); setMode(true);
+});
+
+const labels = {blocked:'Цель скрыта', touch:'Касание', visible:'Цель видна', same:'Одинаковые абсциссы'};
 function showResult() {
   if (!result) return;
   const {kind, x_peak: x, excess} = result;
@@ -190,8 +212,8 @@ function showResult() {
   $('strong', resultBar).dataset.kind = kind;
   $('span', resultBar).textContent = ({
     blocked: 'В точке x = ' + format(x) + ' м рельеф выше отрезка на ' + format(excess) + ' м.',
-    touch: x == null ? 'Отрезок совпадает со звеном профиля.' : 'В точке x = ' + format(x) + ' м отрезок касается рельефа.',
-    visible: 'Рельеф не пересекает отрезок между A и B.',
+    touch: x == null ? 'Отрезок совпадает со звеном профиля.' : 'В точке x = ' + format(x) + ' м разность высот находится в пределах допуска.',
+    visible: 'Внутренняя часть отрезка проходит выше рельефа.',
     same: 'Выберите разные позиции A и B для этого опыта.'
   })[kind];
   showComparison();
@@ -447,7 +469,7 @@ function installCodeControls() {
     editor.value = 'from los import ' + method + '\n\n'
       + 'x_a, x_b = '+xa+', '+xb+'\nh_a, h_b = '+ha+', '+hb+'\n'
       + 'z = ' + JSON.stringify(heights) + '\n\n'
-      + 'result = ' + method + '(x_a, x_b, h_a, h_b' + step + ', z=z)\nprint(result)\n';
+      + 'result = ' + method + '(x_a, x_b, h_a, h_b' + step + ', z=z, diagnostics=True)\nprint(result)\n';
   });
   run.addEventListener('click', async () => {
     run.disabled = true;
@@ -540,10 +562,10 @@ try {
   customElements.define('los-experiment', class extends LitElement {
     render() { return html`<slot></slot>`; }
     paintChart(target, layer) {
+      if (!this.chartReady) {target.replaceChildren(); this.chartReady = true;}
       renderSvg(svgTemplate`${[...layer.childNodes]}`, target);
     }
   });
-  svg.replaceChildren();
   draw();
 } catch {
   // The native controls remain usable when the optional renderer cannot load.

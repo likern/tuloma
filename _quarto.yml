@@ -13,6 +13,7 @@ csl: assets/references/tuloma-numeric.csl
 link-citations: true
 filters:
   - filters/pseudocode.lua
+  - filters/article-refs.lua
 format:
   html:
     theme: none
