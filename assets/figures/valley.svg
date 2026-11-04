@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 270" role="img" aria-labelledby="title">
+<title id="title">Впадина: цель видна</title>
+<style>text{font-family:Arial,sans-serif;font-size:16px;fill:#333b40}.axis{stroke:#b8b5ad;stroke-width:1}.terrain{stroke:#242b2f;stroke-width:2;fill:none}.ray{stroke:#2f5d8a;stroke-width:2;fill:none}</style>
+<rect width="100%" height="100%" fill="#faf7f2"/>
+<text x="24" y="25">Впадина: цель видна</text>
+<polygon points="35,235 35,135 210,210 385,135 385,235" fill="#e5e0d6"/>
+<polyline points="35,135 210,210 385,135" class="terrain"/>
+<path d="M35 135H385" class="ray"/>
+<circle cx="35" cy="135" r="4" fill="#2f5d8a"/><circle cx="385" cy="135" r="4" fill="#2f5d8a"/>
+<text x="28" y="120">A</text><text x="379" y="120">B</text>
+<text x="180" y="232">(5, -3)</text>
+<text x="142" y="80">Луч выше грунта</text>
+<text x="25" y="260">0</text><text x="203" y="260">5</text><text x="368" y="260">10 м</text></svg>

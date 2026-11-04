@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 270" role="img" aria-labelledby="title">
+<title id="title">Разность высот в учебном примере</title>
+<style>text{font-family:Arial,sans-serif;font-size:16px;fill:#333b40}.axis{stroke:#b8b5ad;stroke-width:1}.terrain{stroke:#242b2f;stroke-width:2;fill:none}.ray{stroke:#2f5d8a;stroke-width:2;fill:none}</style>
+<rect width="100%" height="100%" fill="#faf7f2"/>
+<path d="M35 125H387" class="axis"/>
+<polyline points="35,125 83.4,173 136.2,197 180.2,161 211,53 224.2,137 268.2,185 312.2,197 356.2,161 387,125" class="ray"/>
+<text x="25" y="24">Разность d(x), м</text><text x="12" y="130">0</text>
+<text x="208" y="42">+6</text><text x="25" y="251">0</text><text x="197" y="251">40</text><text x="355" y="251">80 м</text></svg>

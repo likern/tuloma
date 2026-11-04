@@ -86,8 +86,25 @@ Quarto включает Pandoc и Lua, используемые для форм�
 ````
 
 На блок можно ссылаться как `[алгоритм](#alg-example)`, на строку —
-`[строка 3](#alg-example-L3)`. Пример LOS размещён в `los.qmd`, фильтр —
-в `filters/pseudocode.lua`, оформление — в `.algorithm` в `assets/style.css`.
+`[строка 3](#alg-example-L3)`. Пример LOS размещён
+в `includes/_article.md`, фильтр — в `filters/pseudocode.lua`, оформление —
+в `.algorithm` в `assets/style.css`.
+
+Основная статья подключается из `includes/_article.md` через `los.qmd`.
+`build-lesson.py` создаёт статические SVG, состояния интерполяции и доказательства,
+а также исходную узловую таблицу из общего модуля Python. Основной Worker
+запрашивает `diagnostics=True`: строки `diagnostics.nodes`, ломаная
+`diagnostics.difference` и `below_segments` получены на стороне Python.
+`assets/lesson.js` рисует их и переключает выбранную строку. Учебный пример
+и текущие параметры главного графика выбираются явно.
+
+Для автоматической нумерации используйте блоки `.equation`, `.numbered-figure`
+и `.numbered-table` с уникальным id; для рисунков и таблиц задайте `caption`.
+Ссылка `[формуле](#eq-line){.xref}` получает номер автоматически. Идентификаторы
+рисунков начинаются с `illustration-`, таблиц — с `table-`: эти имена оставляют
+нумерацию нашему фильтру `filters/article-refs.lua`, без второго счётчика Quarto.
+
+Проверка ядра: `python -B -m unittest discover -s tests`.
 
 Ссылка на лабораторию кодирует координаты A и B, высоты точек, режим,
 шаг равномерной выборки и изменённые отметки узлов. Стандартные сценарии

@@ -46,7 +46,7 @@ self.onmessage = ({data}) => {
         const profile = heights ? py.toPy(heights) : null;
         try {
           const args = step == null ? inputs : [...inputs, step];
-          const result = profile ? solve.callKwargs(...args, {z: profile}) : solve(...args);
+          const result = solve.callKwargs(...args, {...(profile ? {z: profile} : {}), diagnostics: true});
           self.postMessage({id, result: toPlain(result)});
         } finally {
           profile?.destroy();
