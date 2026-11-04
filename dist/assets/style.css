@@ -124,7 +124,7 @@ figcaption { font: .88rem/1.45 var(--sans); color: var(--muted); }
 .sidenote a { font-family: var(--sans); padding-inline: 3px; }
 math { font-family: "Latin Modern Math", math; font-weight: 400; }
 .equation { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 9px; border-block: 1px solid var(--line); margin-block: 1.35rem; padding-block: .9rem; }
-.math-display { min-width: 0; max-width: 100%; overflow-x: auto; padding-block: .2em; }
+.math-display { min-width: 0; max-width: 100%; overflow-x: auto; overflow-y: hidden; padding-block: .2em; }
 .math-display > p { margin: 0; }
 .math-display math[display="block"] { min-width: max-content; }
 .equation math[display="block"] { font-size: clamp(1rem, 4.5vw, 1.42rem); padding-block: .15em; }
