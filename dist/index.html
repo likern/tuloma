@@ -9,8 +9,23 @@
 <link href="index_files/libs/quarto-html/quarto-html-640605f58ae58ee79329c070719e555b.min.css" rel="stylesheet" append-hash="true" data-mode="light">
 <link href="index_files/libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Журнал о геометрии пространства, рельефе и вычислительных экспериментах.">
-  <title>Тулома · Журнал о геометрии пространства</title>
+  <meta name="description" content="Авторский интерактивный журнал о математике геопространственных вычислений. Геометрия, карты и алгоритмы: от модели и вывода формул до воспроизводимого эксперимента.">
+  <title>Тулома · Геометрия, карты и алгоритмы</title>
+  <meta name="theme-color" content="#FAF7F2">
+  <meta property="og:site_name" content="Тулома">
+  <meta property="og:title" content="Тулома · Геометрия, карты и алгоритмы">
+  <meta property="og:description" content="Авторский интерактивный журнал о математике геопространственных вычислений. Геометрия, карты и алгоритмы: от модели и вывода формул до воспроизводимого эксперимента.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:image" content="https://tuloma-los-design.livelyfort.chatgpt.site/assets/brand/tuloma-social.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Тулома — авторский интерактивный журнал о математике геопространственных вычислений">
+  <link rel="icon" type="image/svg+xml" href="assets/brand/favicon.svg">
+  <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="assets/brand/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png">
+  <link rel="preload" href="assets/fonts/EB-Garamond.ttf" as="font" type="font/ttf" crossorigin="">
+  <link rel="preload" href="assets/fonts/PT-Serif.ttf" as="font" type="font/ttf" crossorigin="">
   <link rel="stylesheet" href="assets/style.css">
     <script>
     if (['#model', '#experiment', '#python', '#sources', '#eq-line'].includes(location.hash)) {
@@ -21,17 +36,23 @@
 <body>
   <a href="#content" class="skip">К основному содержанию</a>
   <header class="site-header site-wrap">
-    <a class="brand" href="./" aria-label="Тулома, главная">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <span><strong>Тулома</strong><small>Журнал о геометрии пространства</small></span>
-    </a>
+    <div class="brand-block">
+      <a class="brand" href="./" aria-label="Тулома — главная">
+        <img class="brand-logo" src="assets/brand/tuloma-logo.svg" width="623" height="164" alt="Тулома" fetchpriority="high">
+      </a>
+      <p class="brand-description"><span>Авторский интерактивный журнал</span><span>о математике геопространственных вычислений</span></p>
+    </div>
     <nav class="top-nav" aria-label="Разделы журнала">
-      <a href="./#articles">Статьи</a>
+      <a href="./#articles" aria-current="page">Статьи</a>
       <a href="laboratory.html">Лаборатория</a>
       <a href="./#about">О журнале</a>
     </nav>
   </header>
   <main id="content" class="site-wrap">
+<section class="journal-intro" aria-label="О чём журнал">
+  <p class="eyebrow">ГЕОМЕТРИЯ · КАРТЫ · АЛГОРИТМЫ</p>
+  <p>От модели и вывода формул — к эксперименту, который можно повторить.</p>
+</section>
 <section class="issue-feature" aria-labelledby="featured-title">
   <div class="issue-label"><span class="eyebrow">ГЛАВНАЯ СТАТЬЯ · ГЕОМЕТРИЯ ВИДИМОСТИ</span><span class="edition">МАТЕРИАЛ 01</span></div>
   <h1 id="featured-title"><a href="los.html">Почему вершина<br>скрывает цель</a></h1>
@@ -48,7 +69,7 @@
     <article class="article-list-item">
       <span class="article-number">01</span>
       <div><p class="eyebrow">ГЕОМЕТРИЯ ВИДИМОСТИ</p><h3 class="anchored"><a href="los.html">Почему вершина скрывает цель</a></h3>
-      <p>Постановка задачи, геометрический критерий, контрпример для равномерных отсчётов и воспроизводимый расчёт.</p>
+      <p>От уравнения луча до доказательства алгоритма. Подробный разбор, псевдокод, оценка сложности и расчёт на Python, который можно запустить в браузере.</p>
       <a class="text-arrow" href="los.html#python">Исходник NumPy <span aria-hidden="true">→</span></a></div>
     </article>
   </section>
@@ -61,12 +82,13 @@
   </aside>
 </div>
 <section class="about" id="about" aria-labelledby="about-title">
-  <p class="eyebrow">О ЖУРНАЛЕ</p><h2 id="about-title" class="anchored">Модели, которые можно проверить</h2>
-  <p>«Тулома» посвящена геометрии пространства. В статьях формулируем модель и её границы, а в лаборатории проверяем, как ответ зависит от исходных данных.</p>
+  <p class="eyebrow">АВТОРСКИЙ НАУЧНО-ПОЗНАВАТЕЛЬНЫЙ ЖУРНАЛ</p><h2 id="about-title" class="anchored">Понять модель.<br>Проверить расчёт.</h2>
+  <p>«Тулома» — журнал о математике геопространственных вычислений: геометрии, геодезии, видимости, моделях рельефа и пространственных алгоритмах.</p>
+  <p>Разбираем идеи научных работ от постановки задачи и вывода формул до алгоритма и его границ. Интерактивные схемы помогают исследовать модель, а открытый код Python — самостоятельно повторить вычисления.</p>
 </section>
   </main>
   <footer class="site-footer site-wrap">
-    <div><a href="./">Тулома</a><span>Журнал о геометрии пространства</span></div><a href="#content">Наверх ↑</a>
+    <div class="footer-identity"><a href="./" aria-label="Тулома — главная"><img src="assets/brand/tuloma-logo-ink.svg" width="623" height="164" alt="Тулома" loading="lazy"></a><span>Авторский научно-познавательный журнал</span></div><a href="#content">Наверх ↑</a>
   </footer>
 
 

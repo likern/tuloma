@@ -8,6 +8,7 @@ project:
   resources:
     - assets/
 lang: ru
+site-origin: "https://tuloma-los-design.livelyfort.chatgpt.site"
 bibliography: assets/references/references.bib
 csl: assets/references/tuloma-numeric.csl
 link-citations: true
