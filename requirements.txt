@@ -1,0 +1,2 @@
+# Local build dependency; browser packages are pinned through Pyodide 0.29.4.
+numpy==2.3.5

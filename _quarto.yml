@@ -1,0 +1,20 @@
+project:
+  type: default
+  output-dir: dist
+  render:
+    - index.qmd
+    - los.qmd
+    - laboratory.qmd
+  resources:
+    - assets/
+lang: ru
+bibliography: assets/references/references.bib
+csl: assets/references/tuloma-numeric.csl
+link-citations: true
+filters:
+  - filters/pseudocode.lua
+format:
+  html:
+    theme: none
+    template: article.html
+    html-math-method: mathml

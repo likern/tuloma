@@ -1,0 +1,504 @@
+<html lang="ru" data-page="article"><head>
+<script src="los_files/libs/clipboard/clipboard.min.js"></script>
+<script src="los_files/libs/quarto-html/tabby.min.js"></script>
+<script src="los_files/libs/quarto-html/popper.min.js"></script>
+<script src="los_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="los_files/libs/quarto-html/anchor.min.js"></script>
+<link href="los_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="los_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="los_files/libs/quarto-html/quarto-html-640605f58ae58ee79329c070719e555b.min.css" rel="stylesheet" append-hash="true" data-mode="light">
+<link href="los_files/libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="От геометрического критерия до опыта, в котором равномерная выборка пропускает препятствие.">
+  <title>Почему вершина скрывает цель · Тулома</title>
+  <link rel="stylesheet" href="assets/style.css">
+  <script type="module" src="assets/citations.js"></script>
+  <script type="module" src="assets/main.js"></script></head>
+<body>
+  <a href="#content" class="skip">К основному содержанию</a>
+  <header class="site-header site-wrap">
+    <a class="brand" href="./" aria-label="Тулома, главная">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span><strong>Тулома</strong><small>Журнал о геометрии пространства</small></span>
+    </a>
+    <nav class="top-nav" aria-label="Разделы журнала">
+      <a href="./#articles">Статьи</a>
+      <a href="laboratory.html">Лаборатория</a>
+      <a href="./#about">О журнале</a>
+    </nav>
+  </header>
+  <main id="content" class="site-wrap">
+    <article>
+      <header class="article-header">
+        <p class="eyebrow">ГЕОМЕТРИЯ ВИДИМОСТИ · СТАТЬЯ 01</p>
+        <h1>Почему вершина скрывает цель</h1>
+        <p class="byline">РАЗБОР МОДЕЛИ · PYTHON / NUMPY</p>
+        <p class="lede">От геометрического критерия до опыта, в котором равномерная выборка пропускает препятствие.</p>
+      </header>
+      <div class="reading-grid">
+        <aside class="rail" aria-label="Оглавление">
+          <details open="">
+            <summary>В ЭТОЙ СТАТЬЕ</summary>
+            <nav>
+              <a href="#model"><span>01</span> Модель</a>
+              <a href="#experiment"><span>02</span> Эксперимент</a>
+              <a href="#python"><span>03</span> Реализация</a>
+              <a href="#sources"><span>04</span> Источники</a>
+              <a href="#literature"><span>05</span> Литература</a>
+            </nav>
+          </details>
+        </aside>
+        <div class="article-content">
+<div class="section-kicker">
+<p>01 / МАТЕМАТИЧЕСКАЯ МОДЕЛЬ</p>
+</div>
+<h2 id="model" class="anchored">Видимость на профиле</h2>
+<div class="annotated">
+<p>На профиле рельефа выберем наблюдателя <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> и цель <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>. Между измерениями высоту <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">g(x)</annotation></semantics></math> задаёт линейная интерполяция. Если рельеф поднимается выше отрезка <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">AB</annotation></semantics></math> хотя бы в одной внутренней точке, цель скрыта <span class="citation" data-cites="katz2024">[<a href="#ref-katz2024" role="doc-biblioref">1, разд. 1</a>]</span>.<sup><a id="note-ref-1" href="#note-1" role="doc-noteref">1</a></sup></p>
+<aside class="sidenote" id="note-1" role="doc-footnote"><span>1</span> Координаты заданы в метрах. Профиль учебный, его узлы доступны в исходном коде. <a href="#note-ref-1" aria-label="Вернуться к сноске 1">←</a></aside>
+</div>
+<div id="eq-line" class="equation">
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mrow><mi>A</mi><mi>B</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msub><mi>z</mi><mi>A</mi></msub><mo>+</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>z</mi><mi>B</mi></msub><mo>−</mo><msub><mi>z</mi><mi>A</mi></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo><mspace width="0.167em"></mspace><mfrac><mrow><mi>x</mi><mo>−</mo><msub><mi>x</mi><mi>A</mi></msub></mrow><mrow><msub><mi>x</mi><mi>B</mi></msub><mo>−</mo><msub><mi>x</mi><mi>A</mi></msub></mrow></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
+z_{AB}(x) = z_A + \bigl(z_B - z_A\bigr)\,\frac{x - x_A}{x_B - x_A}.
+</annotation></semantics></math> <span class="eqno">(1)</span></p>
+</div>
+<p>Здесь <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>A</mi></msub><mo>=</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>A</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>h</mi><mi>A</mi></msub></mrow><annotation encoding="application/x-tex">z_A=g(x_A)+h_A</annotation></semantics></math> и <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>B</mi></msub><mo>=</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>B</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>h</mi><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">z_B=g(x_B)+h_B</annotation></semantics></math>, а <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>A</mi></msub><mo>,</mo><msub><mi>h</mi><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">h_A,h_B</annotation></semantics></math> — высоты точек над рельефом. При <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>A</mi></msub><mo>=</mo><msub><mi>x</mi><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">x_A=x_B</annotation></semantics></math> рассматриваем отдельный случай.</p>
+<blockquote>
+<p>Между соседними узлами разность двух линейных функций тоже линейна. Поэтому для проверки перекрытия достаточно узлов профиля между <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> и <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math> и границ выбранного интервала.</p>
+</blockquote>
+<div class="annotated">
+<p>В реализации сравниваем <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>g</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><msub><mi>z</mi><mrow><mi>A</mi><mi>B</mi></mrow></msub><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">g(x)-z_{AB}(x)</annotation></semantics></math> с допуском <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msup><mn>10</mn><mrow><mi>−</mi><mn>9</mn></mrow></msup><annotation encoding="application/x-tex">10^{-9}</annotation></semantics></math> м. Касание внутри интервала отмечаем отдельным статусом. Совпадение луча с целым звеном тоже считается касанием.<sup><a id="note-ref-2" href="#note-2" role="doc-noteref">2</a></sup></p>
+<aside class="sidenote" id="note-2" role="doc-footnote"><span>2</span> Касание в самой точке наблюдателя или цели не считается препятствием. Проверка относится к внутренней части отрезка. <a href="#note-ref-2" aria-label="Вернуться к сноске 2">←</a></aside>
+</div>
+<h3 id="pseudocode" class="anchored">Алгоритм проверки</h3>
+<p>В <a href="#alg-profile-los">алгоритме 1</a> собраны те же правила определения статуса, что и в <code>profile_los</code>. Абсциссы узлов <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">X=(x_i)</annotation></semantics></math> строго возрастают; <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi><mo>=</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>z</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Z=(z_i)</annotation></semantics></math> задаёт высоты рельефа, а <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>g</mi><annotation encoding="application/x-tex">g</annotation></semantics></math> — их линейную интерполяцию. Точки лежат в пределах профиля, высоты <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>A</mi></msub><mo>,</mo><msub><mi>h</mi><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">h_A,h_B</annotation></semantics></math> конечны и неотрицательны; допуск <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi><mo>=</mo><msup><mn>10</mn><mrow><mi>−</mi><mn>9</mn></mrow></msup></mrow><annotation encoding="application/x-tex">\varepsilon=10^{-9}</annotation></semantics></math> м.</p>
+<div id="alg-profile-los" class="algorithm" aria-labelledby="alg-profile-los-caption" role="figure" data-algorithm-number="1">
+<div id="alg-profile-los-caption" class="algorithm-caption">
+<strong>Алгоритм 1</strong> · Точная видимость на кусочно-линейном профиле <a href="#alg-profile-los" class="algorithm-permalink" aria-label="Ссылка на алгоритм 1">§</a>
+</div>
+<div class="algorithm-lines">
+<div id="alg-profile-los-L1" class="algorithm-line">
+<a href="#alg-profile-los-L1" class="algorithm-line-number" aria-label="Строка 1">1</a>
+<div class="algorithm-statement" style="--depth: 0.0">
+<span><strong>Вход:</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>,</mo><mi>Z</mi></mrow><annotation encoding="application/x-tex">X, Z</annotation></semantics></math>, абсциссы <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>A</mi></msub><mo>,</mo><msub><mi>x</mi><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">x_A, x_B</annotation></semantics></math>, высоты <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>A</mi></msub><mo>,</mo><msub><mi>h</mi><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">h_A, h_B</annotation></semantics></math>, допуск <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>ε</mi><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math></span>
+</div>
+</div>
+<div id="alg-profile-los-L2" class="algorithm-line">
+<a href="#alg-profile-los-L2" class="algorithm-line-number" aria-label="Строка 2">2</a>
+<div class="algorithm-statement" style="--depth: 0.0">
+<span><strong>Выход:</strong> статус видимости между <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> и <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math></span>
+</div>
+</div>
+<div id="alg-profile-los-L3" class="algorithm-line">
+<a href="#alg-profile-los-L3" class="algorithm-line-number" aria-label="Строка 3">3</a>
+<div class="algorithm-statement" style="--depth: 0.0">
+<span><strong>Если</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>A</mi></msub><mo>=</mo><msub><mi>x</mi><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">x_A = x_B</annotation></semantics></math>:</span>
+</div>
+</div>
+<div id="alg-profile-los-L4" class="algorithm-line">
+<a href="#alg-profile-los-L4" class="algorithm-line-number" aria-label="Строка 4">4</a>
+<div class="algorithm-statement" style="--depth: 1.0">
+<span class="algorithm-guide algorithm-guide-end" aria-hidden="true" style="--level: 1"></span><span><strong>Вернуть</strong> «Одна абсцисса»</span>
+</div>
+</div>
+<div id="alg-profile-los-L5" class="algorithm-line">
+<a href="#alg-profile-los-L5" class="algorithm-line-number" aria-label="Строка 5">5</a>
+<div class="algorithm-statement" style="--depth: 0.0">
+<span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>A</mi></msub><mo>←</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>A</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>h</mi><mi>A</mi></msub></mrow><annotation encoding="application/x-tex">z_A \gets g(x_A) + h_A</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mi>B</mi></msub><mo>←</mo><mi>g</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>B</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><msub><mi>h</mi><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">z_B \gets g(x_B) + h_B</annotation></semantics></math></span>
+</div>
+</div>
+<div id="alg-profile-los-L6" class="algorithm-line">
+<a href="#alg-profile-los-L6" class="algorithm-line-number" aria-label="Строка 6">6</a>
+<div class="algorithm-statement" style="--depth: 0.0">
+<span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mo>←</mo><mrow><mi mathvariant="normal">min</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>A</mi></msub><mo>,</mo><msub><mi>x</mi><mi>B</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\ell \gets \min(x_A,x_B)</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>←</mo><mrow><mi mathvariant="normal">max</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>A</mi></msub><mo>,</mo><msub><mi>x</mi><mi>B</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r \gets \max(x_A,x_B)</annotation></semantics></math></span>
+</div>
+</div>
+<div id="alg-profile-los-L7" class="algorithm-line">
+<a href="#alg-profile-los-L7" class="algorithm-line-number" aria-label="Строка 7">7</a>
+<div class="algorithm-statement" style="--depth: 0.0">
+<span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>←</mo><mo stretchy="false" form="prefix">{</mo><mi>i</mi><mo>∣</mo><mi>ℓ</mi><mo>&lt;</mo><msub><mi>x</mi><mi>i</mi></msub><mo>&lt;</mo><mi>r</mi><mo stretchy="false" form="postfix">}</mo></mrow><annotation encoding="application/x-tex">S \gets \{i \mid \ell &lt; x_i &lt; r\}</annotation></semantics></math></span>
+</div>
+</div>
+<div id="alg-profile-los-L8" class="algorithm-line">
+<a href="#alg-profile-los-L8" class="algorithm-line-number" aria-label="Строка 8">8</a>
+<div class="algorithm-statement" style="--depth: 0.0">
+<span><strong>Если</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mo>=</mo><mi>⌀</mi></mrow><annotation encoding="application/x-tex">S = \varnothing</annotation></semantics></math>:</span>
+</div>
+</div>
+<div id="alg-profile-los-L9" class="algorithm-line">
+<a href="#alg-profile-los-L9" class="algorithm-line-number" aria-label="Строка 9">9</a>
+<div class="algorithm-statement" style="--depth: 1.0">
+<span class="algorithm-guide" aria-hidden="true" style="--level: 1"></span><span><strong>Если</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>A</mi></msub><mo>=</mo><msub><mi>h</mi><mi>B</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h_A = h_B = 0</annotation></semantics></math>:</span>
+</div>
+</div>
+<div id="alg-profile-los-L10" class="algorithm-line">
+<a href="#alg-profile-los-L10" class="algorithm-line-number" aria-label="Строка 10">10</a>
+<div class="algorithm-statement" style="--depth: 2.0">
+<span class="algorithm-guide" aria-hidden="true" style="--level: 1"></span><span class="algorithm-guide algorithm-guide-end" aria-hidden="true" style="--level: 2"></span><span><strong>Вернуть</strong> «Касание»</span>
+</div>
+</div>
+<div id="alg-profile-los-L11" class="algorithm-line">
+<a href="#alg-profile-los-L11" class="algorithm-line-number" aria-label="Строка 11">11</a>
+<div class="algorithm-statement" style="--depth: 1.0">
+<span class="algorithm-guide algorithm-guide-end" aria-hidden="true" style="--level: 1"></span><span><strong>Вернуть</strong> «Видна»</span>
+</div>
+</div>
+<div id="alg-profile-los-L12" class="algorithm-line">
+<a href="#alg-profile-los-L12" class="algorithm-line-number" aria-label="Строка 12">12</a>
+<div class="algorithm-statement" style="--depth: 0.0">
+<span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi mathvariant="normal">max</mi></msub><mo>←</mo><mi>−</mi><mi>∞</mi></mrow><annotation encoding="application/x-tex">d_{\max} \gets -\infty</annotation></semantics></math></span>
+</div>
+</div>
+<div id="alg-profile-los-L13" class="algorithm-line">
+<a href="#alg-profile-los-L13" class="algorithm-line-number" aria-label="Строка 13">13</a>
+<div class="algorithm-statement" style="--depth: 0.0">
+<span><strong>Для каждого</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>∈</mo><mi>S</mi></mrow><annotation encoding="application/x-tex">i \in S</annotation></semantics></math>:</span>
+</div>
+</div>
+<div id="alg-profile-los-L14" class="algorithm-line">
+<a href="#alg-profile-los-L14" class="algorithm-line-number" aria-label="Строка 14">14</a>
+<div class="algorithm-statement" style="--depth: 1.0">
+<span class="algorithm-guide" aria-hidden="true" style="--level: 1"></span><span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>t</mi><mo>←</mo><mstyle displaystyle="true"><mfrac><mrow><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><msub><mi>x</mi><mi>A</mi></msub></mrow><mrow><msub><mi>x</mi><mi>B</mi></msub><mo>−</mo><msub><mi>x</mi><mi>A</mi></msub></mrow></mfrac></mstyle></mrow><annotation encoding="application/x-tex">t \gets \dfrac{x_i-x_A}{x_B-x_A}</annotation></semantics></math></span>
+</div>
+</div>
+<div id="alg-profile-los-L15" class="algorithm-line">
+<a href="#alg-profile-los-L15" class="algorithm-line-number" aria-label="Строка 15">15</a>
+<div class="algorithm-statement" style="--depth: 1.0">
+<span class="algorithm-guide" aria-hidden="true" style="--level: 1"></span><span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>z</mi><mrow><mi>A</mi><mi>B</mi></mrow></msub><mo>←</mo><msub><mi>z</mi><mi>A</mi></msub><mo>+</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>z</mi><mi>B</mi></msub><mo>−</mo><msub><mi>z</mi><mi>A</mi></msub><mo stretchy="false" form="postfix">)</mo><mspace width="0.167em"></mspace><mi>t</mi></mrow><annotation encoding="application/x-tex">z_{AB} \gets z_A + (z_B-z_A)\,t</annotation></semantics></math></span>
+</div>
+</div>
+<div id="alg-profile-los-L16" class="algorithm-line">
+<a href="#alg-profile-los-L16" class="algorithm-line-number" aria-label="Строка 16">16</a>
+<div class="algorithm-statement" style="--depth: 1.0">
+<span class="algorithm-guide algorithm-guide-end" aria-hidden="true" style="--level: 1"></span><span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi mathvariant="normal">max</mi></msub><mo>←</mo><mrow><mi mathvariant="normal">max</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>d</mi><mi mathvariant="normal">max</mi></msub><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>z</mi><mi>i</mi></msub><mo>−</mo><msub><mi>z</mi><mrow><mi>A</mi><mi>B</mi></mrow></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d_{\max} \gets \max(d_{\max},\;z_i-z_{AB})</annotation></semantics></math></span>
+</div>
+</div>
+<div id="alg-profile-los-L17" class="algorithm-line">
+<a href="#alg-profile-los-L17" class="algorithm-line-number" aria-label="Строка 17">17</a>
+<div class="algorithm-statement" style="--depth: 0.0">
+<span><strong>Если</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi mathvariant="normal">max</mi></msub><mo>&gt;</mo><mi>ε</mi></mrow><annotation encoding="application/x-tex">d_{\max} &gt; \varepsilon</annotation></semantics></math>:</span>
+</div>
+</div>
+<div id="alg-profile-los-L18" class="algorithm-line">
+<a href="#alg-profile-los-L18" class="algorithm-line-number" aria-label="Строка 18">18</a>
+<div class="algorithm-statement" style="--depth: 1.0">
+<span class="algorithm-guide algorithm-guide-end" aria-hidden="true" style="--level: 1"></span><span><strong>Вернуть</strong> «Скрыта»</span>
+</div>
+</div>
+<div id="alg-profile-los-L19" class="algorithm-line">
+<a href="#alg-profile-los-L19" class="algorithm-line-number" aria-label="Строка 19">19</a>
+<div class="algorithm-statement" style="--depth: 0.0">
+<span><strong>Если</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi mathvariant="normal">max</mi></msub><mo>≥</mo><mi>−</mi><mi>ε</mi></mrow><annotation encoding="application/x-tex">d_{\max} \geq -\varepsilon</annotation></semantics></math>:</span>
+</div>
+</div>
+<div id="alg-profile-los-L20" class="algorithm-line">
+<a href="#alg-profile-los-L20" class="algorithm-line-number" aria-label="Строка 20">20</a>
+<div class="algorithm-statement" style="--depth: 1.0">
+<span class="algorithm-guide algorithm-guide-end" aria-hidden="true" style="--level: 1"></span><span><strong>Вернуть</strong> «Касание»</span>
+</div>
+</div>
+<div id="alg-profile-los-L21" class="algorithm-line">
+<a href="#alg-profile-los-L21" class="algorithm-line-number" aria-label="Строка 21">21</a>
+<div class="algorithm-statement" style="--depth: 0.0">
+<span><strong>Вернуть</strong> «Видна»</span>
+</div>
+</div>
+</div>
+</div>
+<p>При отсутствии внутренних узлов обе точки лежат на одном звене ломаной. Если обе высоты равны нулю, отрезок совпадает с рельефом; иначе его внутренняя часть находится выше рельефа. Проверка узлов занимает <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>O</mi><mo stretchy="false" form="prefix">(</mo><mi>n</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">O(n)</annotation></semantics></math> времени, где <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math> — число узлов профиля. Python-реализация дополнительно находит интервалы под рельефом для окрашивания графика.</p>
+<div class="section-kicker">
+<p>02 / ИНТЕРАКТИВНЫЙ ОПЫТ</p>
+</div>
+<h2 id="experiment" class="anchored">Найдите границу видимости</h2>
+<p>В исходном примере обе точки лежат на рельефе на отметке 6 м. Вершина при <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>40</mn></mrow><annotation encoding="application/x-tex">x=40</annotation></semantics></math> м достигает 12 м. Сравните отсчёты через 25 и 20 м.</p>
+<figure class="experiment-figure" aria-label="Эксперимент с линией визирования">
+  <los-experiment>
+    <div class="widget-shell">
+      <div class="widget-plot">
+        <div class="chart-wrap">
+          <svg class="chart" role="img" aria-label="Профиль рельефа, линия визирования и отсчёты"></svg>
+          <img class="nojs" src="assets/cover-profile.svg" alt="Исходный профиль: вершина на 6 м выше отрезка AB.">
+        </div>
+        <ul class="chart-legend" aria-label="Обозначения графика">
+          <li><i class="legend-a"></i> Наблюдатель A</li>
+          <li><i class="legend-b"></i> Цель B</li>
+          <li><i class="legend-line"></i> Линия визирования</li>
+          <li><i class="legend-blocked"></i> Линия под рельефом</li>
+          <li id="legend-samples"><i class="legend-sample"></i> Равномерный отсчёт</li>
+        </ul>
+        <div class="result-bar" role="status">
+          <strong data-kind="blocked">Цель скрыта</strong><span>В точке x = 40 м рельеф выше отрезка на 6 м.</span>
+        </div>
+        <div id="comparison" class="comparison" hidden="" aria-live="polite">
+          <div class="comparison-pair">
+            <div><small>ПО УЗЛАМ ПРОФИЛЯ</small><strong id="exact-verdict"></strong></div>
+            <div><small>ПО РАВНОМЕРНЫМ ОТСЧЁТАМ</small><strong id="sampled-verdict"></strong></div>
+          </div>
+          <p id="comparison-detail"></p>
+          <p id="sample-positions"></p>
+        </div>
+      </div>
+      <aside class="widget-controls" aria-label="Параметры эксперимента">
+        <p class="eyebrow">ПАРАМЕТРЫ</p>
+        <div class="presets" aria-label="Готовые сценарии"></div>
+        <div class="method-tabs" role="group" aria-label="Режим проверки">
+          <button type="button" id="exact-mode" aria-pressed="true">По узлам</button>
+          <button type="button" id="compare-mode" aria-pressed="false" aria-controls="sampling-controls">Сравнить методы</button>
+        </div>
+        <div id="sampling-controls" class="sampling-controls" hidden="">
+          <label for="sampling-step">Шаг выборки <output id="step-value" for="sampling-step">25 м</output></label>
+          <input type="range" id="sampling-step" min="5" max="50" step="1" value="25">
+          <div class="sampling-presets" aria-label="Показательные шаги">
+            <button class="subtle" type="button" data-step="25" aria-pressed="true">25 м</button>
+            <button class="subtle" type="button" data-step="20" aria-pressed="false">20 м</button>
+          </div>
+        </div>
+        <div class="input-grid">
+          <label>Позиция A <output>0 м</output><input disabled="" type="range" min="0" max="100" step="0.5" value="0" data-index="0"></label>
+          <label>Позиция B <output>80 м</output><input disabled="" type="range" min="0" max="100" step="0.5" value="80" data-index="1"></label>
+          <label>Высота A над рельефом <output>0 м</output><input disabled="" type="range" min="0" max="24" step="0.5" value="0" data-index="2"></label>
+          <label>Высота B над рельефом <output>0 м</output><input disabled="" type="range" min="0" max="24" step="0.5" value="0" data-index="3"></label>
+        </div>
+        <div class="widget-footer">
+          <button type="button" class="primary" id="activate">Запустить Python</button>
+          <span id="runtime-status" role="status">Готовые сценарии рассчитаны заранее. Запустите Python для свободного редактирования.</span>
+        </div>
+        <div class="laboratory-controls">
+          <fieldset id="vertex-editor" disabled="">
+            <legend>Вершина рельефа</legend>
+            <div>
+              <label>Координата x<select id="vertex-select"></select></label>
+              <label>Высота, м<input id="vertex-height" type="number" min="0" max="40" step="0.5"></label>
+            </div>
+            <small>На графике можно перетащить вершину вверх или вниз.</small>
+          </fieldset>
+          <div class="laboratory-actions">
+            <button type="button" class="subtle" id="reset-experiment">Сбросить</button>
+            <button type="button" class="subtle" id="share-experiment">Скопировать ссылку</button>
+          </div>
+          <input type="url" id="share-url" aria-label="Ссылка на текущий эксперимент" hidden="" readonly="">
+          <p id="share-status" role="status"></p>
+        </div>
+      </aside>
+    </div>
+  </los-experiment>
+  <figcaption>Штрихом отмечена часть линии (AB) под рельефом. Синие кольца показывают равномерные отсчёты.</figcaption>
+</figure>
+<p class="experiment-forward"><a class="text-arrow" id="open-lab" href="laboratory.html">Открыть этот сценарий в лаборатории <span aria-hidden="true">→</span></a></p>
+<h3 id="почему-равномерная-выборка-пропускает-вершину" class="anchored">Почему равномерная выборка пропускает вершину</h3>
+<p>При шаге 25 м от наблюдателя <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> проверяются внутренние точки 25, 50 и 75 м. Во всех трёх рельеф ниже отрезка из <a href="#eq-line">формулы (1)</a>, хотя между отсчётами вершина на <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>40</mn></mrow><annotation encoding="application/x-tex">x=40</annotation></semantics></math> м поднимается на 6 м выше него. При шаге 20 м отсчёт попадает в вершину, и оба метода обнаруживают перекрытие. На графике равномерные отсчёты выделены кольцами.</p>
+<p>Для ломаной проверка всех её внутренних узлов даёт точный ответ о перекрытии в рамках этой модели. Равномерная проверка даёт ответ только для выбранных отсчётов. Их положение зависит и от шага, и от координаты наблюдателя.</p>
+<p>Профиль и контрольные сценарии сконструированы для этой статьи. Связанную задачу — в каком порядке проверять отсчёты, чтобы раньше обнаружить препятствие, — исследуют Bartie и Mackaness <span class="citation" data-cites="bartie2017">[<a href="#ref-bartie2017" role="doc-biblioref">2, разд. 3–4</a>]</span>.</p>
+<h3 id="три-контрольных-случая" class="anchored">Три контрольных случая</h3>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Сценарий</th>
+<th style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>h</mi><mi>A</mi></msub><annotation encoding="application/x-tex">h_A</annotation></semantics></math>, м</th>
+<th style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>h</mi><mi>B</mi></msub><annotation encoding="application/x-tex">h_B</annotation></semantics></math>, м</th>
+<th style="text-align: right;">Разность в вершине, м</th>
+<th style="text-align: left;">Статус</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Обе точки на рельефе</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">+6</td>
+<td style="text-align: left;">Скрыта</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Цель поднята до касания</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: left;">Касание</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Цель выше границы</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">−2</td>
+<td style="text-align: left;">Видна</td>
+</tr>
+</tbody>
+</table>
+<p>Здесь разность берётся в вершине <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi><mo>=</mo><mn>40</mn></mrow><annotation encoding="application/x-tex">x=40</annotation></semantics></math> м. Для решения алгоритм проверяет все внутренние узлы, а не только эту вершину.</p>
+<div class="section-kicker">
+<p>03 / ВОСПРОИЗВОДИМОСТЬ</p>
+</div>
+<h2 id="python" class="anchored">Тот же расчёт в Python</h2>
+<p>Откройте исходник, измените параметры и запустите ячейку. График и ячейка используют одни и те же функции из <code>los.py</code>. Кнопка «Подставить параметры графика» учитывает и режим сравнения. Редактор показывает значения, с которыми можно повторить расчёт локально.</p>
+<div class="flow" aria-label="Поток вычислений">
+  <div><span>01</span><strong>Точки A и B</strong><small>Координаты и высоты</small></div>
+  <div><span>02</span><strong>NumPy</strong><small>Интерполяция и проверка узлов</small></div>
+  <div><span>03</span><strong>Видимость</strong><small>Статус и диагностика</small></div>
+  <div><span>04</span><strong>SVG</strong><small>График и подпись</small></div>
+</div>
+<div class="code-lab">
+  <div class="code-head"><span><b></b> experiment.py</span><button type="button" class="subtle" id="load-params">Подставить параметры графика</button></div>
+  <label class="sr-only" for="source-code">Редактор исходного кода Python</label>
+  <textarea id="source-code" spellcheck="false" wrap="off" rows="9">from los import profile_los
+
+# Измените координаты или высоты и запустите снова.
+x_a, x_b = 0, 80
+h_a, h_b = 0, 0
+
+result = profile_los(x_a, x_b, h_a, h_b)
+print(result)</textarea>
+  <div class="code-actions"><button type="button" class="primary" id="run-code">Выполнить <span aria-hidden="true">▶</span></button><a href="assets/los.py" download="">Скачать los.py</a><a href="assets/experiment.py" download="">Скачать пример</a></div>
+  <pre class="code-output" id="code-output" role="status" aria-label="Результат Python">При запуске здесь появится вывод Python.</pre>
+</div>
+<details class="source-details">
+  <summary>Проверка узлов и выборка · исходник NumPy</summary>
+  <pre class="algorithm-source"><code>&quot;&quot;&quot;Геометрическая видимость на кусочно-линейном профиле.&quot;&quot;&quot;
+import numpy as np
+
+X = np.array([0, 11, 23, 33, 40, 43, 53, 63, 73, 80, 91, 100], dtype=float)
+Z = np.array([6, 2, 0, 3, 12, 5, 1, 0, 3, 6, 3, 8], dtype=float)
+
+
+def _heights(z):
+    heights = np.asarray(z, dtype=float)
+    if heights.shape != X.shape or not np.all(np.isfinite(heights)):
+        raise ValueError(&quot;Для каждого узла требуется конечная высота.&quot;)
+    return heights
+
+
+def profile_los(x_a, x_b, h_a=0, h_b=0, *, z=Z, atol=1e-9):
+    &quot;&quot;&quot;Проверить точную видимость и найти части отрезка под рельефом.&quot;&quot;&quot;
+    if not (X[0] &lt;= x_a &lt;= X[-1] and X[0] &lt;= x_b &lt;= X[-1]):
+        raise ValueError(&quot;Точки должны лежать в пределах профиля.&quot;)
+    if not (0 &lt;= h_a &lt; np.inf and 0 &lt;= h_b &lt; np.inf):
+        raise ValueError(&quot;Высоты должны быть конечными и неотрицательными.&quot;)
+    heights = _heights(z)
+
+    a = float(np.interp(x_a, X, heights) + h_a)
+    b = float(np.interp(x_b, X, heights) + h_b)
+    result = {&quot;a&quot;: [x_a, a], &quot;b&quot;: [x_b, b], &quot;kind&quot;: &quot;visible&quot;,
+              &quot;x_peak&quot;: None, &quot;peak_z&quot;: None, &quot;excess&quot;: None,
+              &quot;ground&quot;: [a - h_a, b - h_b], &quot;below&quot;: []}
+    if x_a == x_b:
+        return {**result, &quot;kind&quot;: &quot;same&quot;}
+
+    left, right = sorted((x_a, x_b))
+    inside = (X &gt; left) &amp; (X &lt; right)
+    xs, zs = X[inside], heights[inside]
+    if not xs.size:
+        if h_a == h_b == 0:
+            result[&quot;kind&quot;] = &quot;touch&quot;
+        return result
+
+    line = a + (b - a) * ((xs - x_a) / (x_b - x_a))
+    excess = zs - line
+    k = int(np.argmax(excess))
+    peak = float(excess[k])
+    if peak &gt; atol:
+        kind = &quot;blocked&quot;
+        endpoint_gaps = (-h_a, -h_b) if x_a &lt; x_b else (-h_b, -h_a)
+        result[&quot;below&quot;] = _below_intervals(
+            [left, *xs.tolist(), right], [endpoint_gaps[0], *excess.tolist(), endpoint_gaps[1]]
+        )
+    elif peak &gt;= -atol:
+        kind = &quot;touch&quot;
+    else:
+        kind = &quot;visible&quot;
+    return {**result, &quot;kind&quot;: kind, &quot;x_peak&quot;: float(xs[k]),
+            &quot;peak_z&quot;: float(zs[k]), &quot;excess&quot;: peak}
+
+
+def _below_intervals(xs, gaps):
+    spans = []
+    for left, right, gap_left, gap_right in zip(xs, xs[1:], gaps, gaps[1:]):
+        if gap_left &lt;= 0 and gap_right &lt;= 0:
+            continue
+        if gap_left &lt;= 0:
+            left += (right - left) * (-gap_left) / (gap_right - gap_left)
+        elif gap_right &lt;= 0:
+            right = left + (right - left) * gap_left / (gap_left - gap_right)
+        if spans and spans[-1][1] == left:
+            spans[-1][1] = right
+        else:
+            spans.append([left, right])
+    return spans
+
+
+def compare_profile_los(x_a, x_b, h_a=0, h_b=0, step=25, *, z=Z, atol=1e-9):
+    &quot;&quot;&quot;Сравнить узлы ломаной с отсчётами через step метров от A.&quot;&quot;&quot;
+    if not np.isfinite(step) or step &lt;= 0:
+        raise ValueError(&quot;Шаг должен быть конечным и положительным.&quot;)
+    heights = _heights(z)
+    exact = profile_los(x_a, x_b, h_a, h_b, z=heights, atol=atol)
+    distance = abs(x_b - x_a)
+    if distance &gt; 10_000 * step:
+        raise ValueError(&quot;В опыте допускается до 10 000 отсчётов.&quot;)
+
+    if not distance:
+        return {&quot;exact&quot;: exact, &quot;sampled&quot;: &quot;same&quot;, &quot;samples&quot;: []}
+
+    direction = np.sign(x_b - x_a)
+    xs = x_a + direction * np.arange(step, distance, step)
+    xs = xs[(xs &gt; min(x_a, x_b)) &amp; (xs &lt; max(x_a, x_b))]
+    if not xs.size:
+        return {&quot;exact&quot;: exact, &quot;sampled&quot;: &quot;empty&quot;, &quot;samples&quot;: []}
+
+    zs = np.interp(xs, X, heights)
+    a, b = exact[&quot;a&quot;][1], exact[&quot;b&quot;][1]
+    line = a + (b - a) * ((xs - x_a) / (x_b - x_a))
+    peak = float(np.max(zs - line))
+    sampled = &quot;blocked&quot; if peak &gt; atol else &quot;touch&quot; if peak &gt;= -atol else &quot;visible&quot;
+    return {&quot;exact&quot;: exact, &quot;sampled&quot;: sampled,
+            &quot;samples&quot;: np.column_stack((xs, zs)).tolist()}
+
+
+if __name__ == &quot;__main__&quot;:
+    print(profile_los(0, 80))
+</code></pre>
+</details>
+<p>Вычисления в браузере выполняет Pyodide в отдельном Web Worker <span class="citation" data-cites="pyodide0294">[<a href="#ref-pyodide0294" role="doc-biblioref">3</a>]</span>. Статья собрана в Quarto, который поддерживает формулы, широкие иллюстрации и примечания на полях <span class="citation" data-cites="quarto-layout">[<a href="#ref-quarto-layout" role="doc-biblioref">4</a>]</span>.</p>
+<div class="section-kicker">
+<p>04 / КОНТЕКСТ</p>
+</div>
+<h2 id="sources" class="anchored">Где заканчивается эта модель</h2>
+<p>Этот опыт описывает видимость в одном вертикальном сечении. Построение профиля между наблюдателем и целью и переход к карте видимости разобраны в учебнике TU Delft <span class="citation" data-cites="ledoux2026">[<a href="#ref-ledoux2026" role="doc-biblioref">5, разд. 10.3</a>]</span>. Для реального DEM нужно дополнительно задать интерполяцию, горизонтальную и вертикальную системы координат и способ обработки ячеек без данных. А когда цель меняется от точки к точке по двумерному растру, мы переходим от одного LOS-запроса к задаче viewshed <span class="citation" data-cites="gdal-viewshed">[<a href="#ref-gdal-viewshed" role="doc-biblioref">6</a>]</span>.</p>
+<blockquote>
+<p>“a binary visibility raster”</p>
+<p>— GDAL, документация команды viewshed <span class="citation" data-cites="gdal-viewshed">[<a href="#ref-gdal-viewshed" role="doc-biblioref">6</a>]</span>. Бинарная карта отвечает на вопрос о видимости для множества целей.</p>
+</blockquote>
+<div class="section-kicker">
+<p>05 / ИСТОЧНИКИ СТАТЬИ</p>
+</div>
+<h2 id="literature" class="anchored">Литература</h2>
+<p>Номера в тексте ведут к источникам ниже. В каждой записи указаны авторы, название и исходная публикация. Открытые PDF с разрешением на распространение доступны с этого сайта. Для остальных материалов приведена ссылка на страницу автора или издателя.</p>
+<a class="bibliography-export" href="assets/references/references.bib" download="">Скачать библиографию · BibTeX</a>
+<div id="refs" class="references csl-bib-body" data-entry-spacing="1" role="list">
+<div id="ref-katz2024" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[1] </div><div class="csl-right-inline">Katz, M. J., Saban, R., Sharir, M. Near-Linear Algorithms for Visibility Graphs over a 1.5-Dimensional Terrain. <em>32nd Annual European Symposium on Algorithms (ESA 2024)</em>, 308, 2024, 77:1–77:17. <a href="https://doi.org/10.4230/LIPIcs.ESA.2024.77">https://doi.org/10.4230/LIPIcs.ESA.2024.77</a>. <a href="assets/papers/katz-saban-sharir-2024.pdf">Скачать PDF · 17 страниц</a>. Оригинал издателя. <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</div>
+</div>
+<div id="ref-bartie2017" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[2] </div><div class="csl-right-inline">Bartie, P., Mackaness, W. Improving the sampling strategy for point-to-point line-of-sight modelling in urban environments. <em>International Journal of Geographical Information Science</em>, 31(4), 2017, 805–824. <a href="https://doi.org/10.1080/13658816.2016.1243243">https://doi.org/10.1080/13658816.2016.1243243</a>. <a href="https://www.research.ed.ac.uk/en/publications/improving-the-sampling-strategy-for-point-to-point-line-of-sight-/">Страница авторов и открытая авторская версия</a>.</div>
+</div>
+<div id="ref-pyodide0294" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[3] </div><div class="csl-right-inline">Pyodide contributors. Using Pyodide in a web worker. <a href="https://pyodide.org/en/0.29.4/usage/webworker.html">https://pyodide.org/en/0.29.4/usage/webworker.html</a>. Документация версии 0.29.4, используемой в этом опыте.</div>
+</div>
+<div id="ref-quarto-layout" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[4] </div><div class="csl-right-inline">Quarto contributors. Article Layout. <a href="https://quarto.org/docs/authoring/article-layout.html">https://quarto.org/docs/authoring/article-layout.html</a>. Документация. Дата обращения 4 ноября 2026.</div>
+</div>
+<div id="ref-ledoux2026" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[5] </div><div class="csl-right-inline">Ledoux, H., Arroyo Ohori, K., Peters, R., Pronk, M. Visibility queries on terrains. <em>Computational modelling of terrains</em>, 2026, 115–122. <a href="https://github.com/tudelft3d/terrainbook/releases/tag/2026.0">https://github.com/tudelft3d/terrainbook/releases/tag/2026.0</a>. <a href="assets/papers/ledoux-2026-visibility.pdf">Скачать PDF главы · 10 страниц</a>. Глава 10, титульная страница и страница лицензии из редакции 2026.0. Сохранены содержание и вёрстка выбранных страниц. <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</div>
+</div>
+<div id="ref-gdal-viewshed" class="csl-entry" role="listitem">
+<div class="csl-left-margin">[6] </div><div class="csl-right-inline">GDAL contributors. gdal raster viewshed. <a href="https://gdal.org/en/stable/programs/gdal_raster_viewshed.html">https://gdal.org/en/stable/programs/gdal_raster_viewshed.html</a>. Документация. Дата обращения 4 ноября 2026.</div>
+</div>
+</div>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer site-wrap">
+    <div><a href="./">Тулома</a><span>Журнал о геометрии пространства</span></div><a href="#content">Наверх ↑</a>
+  </footer>
+
+
+</body></html>

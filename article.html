@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ru" data-page="$if(is-home)$home$elseif(is-lab)$laboratory$else$article$endif$">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="$description$">
+  <title>$title$$if(is-home)$ · Журнал о геометрии пространства$else$ · Тулома$endif$</title>
+  <link rel="stylesheet" href="assets/style.css">
+$if(is-article)$
+  <script type="module" src="assets/citations.js"></script>
+$endif$
+  $if(is-home)$
+  <script>
+    if (['#model', '#experiment', '#python', '#sources', '#eq-line'].includes(location.hash)) {
+      location.replace('los.html' + location.search + location.hash);
+    }
+  </script>
+  $else$<script type="module" src="assets/main.js"></script>$endif$
+</head>
+<body>
+  <a href="#content" class="skip">К основному содержанию</a>
+  <header class="site-header site-wrap">
+    <a class="brand" href="./" aria-label="Тулома, главная">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span><strong>Тулома</strong><small>Журнал о геометрии пространства</small></span>
+    </a>
+    <nav class="top-nav" aria-label="Разделы журнала">
+      <a href="./#articles">Статьи</a>
+      <a href="laboratory.html"$if(is-lab)$ aria-current="page"$endif$>Лаборатория</a>
+      <a href="./#about">О журнале</a>
+    </nav>
+  </header>
+  <main id="content" class="site-wrap">
+$if(is-home)$
+$body$
+$elseif(is-lab)$
+    <header class="laboratory-header">
+      <div>
+        <p class="eyebrow">ЛАБОРАТОРИЯ · ЭКСПЕРИМЕНТ 01</p>
+        <h1>$title$</h1>
+        <p class="lede">$description$</p>
+      </div>
+      <a id="back-article" class="text-arrow" href="los.html#experiment">← К статье</a>
+    </header>
+$body$
+$else$
+    <article>
+      <header class="article-header">
+        <p class="eyebrow">ГЕОМЕТРИЯ ВИДИМОСТИ · СТАТЬЯ 01</p>
+        <h1>$title$</h1>
+        <p class="byline">РАЗБОР МОДЕЛИ · PYTHON / NUMPY</p>
+        <p class="lede">$description$</p>
+      </header>
+      <div class="reading-grid">
+        <aside class="rail" aria-label="Оглавление">
+          <details open>
+            <summary>В ЭТОЙ СТАТЬЕ</summary>
+            <nav>
+              <a href="#model"><span>01</span> Модель</a>
+              <a href="#experiment"><span>02</span> Эксперимент</a>
+              <a href="#python"><span>03</span> Реализация</a>
+              <a href="#sources"><span>04</span> Источники</a>
+              <a href="#literature"><span>05</span> Литература</a>
+            </nav>
+          </details>
+        </aside>
+        <div class="article-content">
+$body$
+        </div>
+      </div>
+    </article>
+$endif$
+  </main>
+  <footer class="site-footer site-wrap">
+    <div><a href="./">Тулома</a><span>Журнал о геометрии пространства</span></div><a href="#content">Наверх ↑</a>
+  </footer>
+</body>
+</html>
