@@ -55,14 +55,15 @@ button:disabled { cursor: default; opacity: .64; }
 .skip:focus { position: fixed; inset: 10px auto auto 12px; z-index: 10; padding: 9px 13px; background: var(--panel); }
 .site-wrap { width: min(1240px, calc(100% - 96px)); margin-inline: auto; }
 .site-header {
-  display: flex; align-items: flex-start; justify-content: space-between; gap: 14px 30px;
-  padding-block: 31px 20px; border-bottom: 3px double var(--ink);
+  display: flex; align-items: center; justify-content: space-between; gap: 20px 36px;
+  padding-block: 24px 22px; border-bottom: 3px double var(--ink);
 }
-.brand { display: flex; gap: 11px; align-items: flex-start; color: var(--ink); text-decoration: none; }
-.brand strong { display: block; font: 400 2.13rem/.99 var(--display); letter-spacing: -.035em; }
-.brand small { display: block; margin-top: 4px; color: var(--muted); font: .78rem/1.25 var(--sans); }
-.brand-mark { width: 8px; height: 8px; margin-top: 11px; background: var(--accent); transform: rotate(45deg); }
-.top-nav { display: flex; flex-wrap: wrap; gap: 9px clamp(14px, 3vw, 39px); padding-top: 6px; font: .93rem var(--sans); }
+.brand-block { min-width: 0; }
+.brand { display: inline-block; color: var(--ink); text-decoration: none; }
+.brand-logo { display: block; width: clamp(270px, 31vw, 370px); height: auto; }
+.brand-description { color: var(--muted); font: .87rem/1.43 var(--sans); margin: 4px 0 0; max-width: 430px; }
+.brand-description span { display: block; }
+.top-nav { display: flex; flex-wrap: wrap; gap: 9px clamp(14px, 3vw, 39px); font: .96rem var(--sans); }
 .top-nav a { color: var(--ink); text-decoration: none; }
 .top-nav a:hover, .top-nav a[aria-current] { color: var(--accent); text-decoration: underline; }
 h1, h2, h3 { font-family: var(--display); font-weight: 400; line-height: 1.08; }
@@ -75,7 +76,9 @@ h3 { font-size: 1.55rem; margin: .12em 0 .32em; }
 .eyebrow, .section-kicker { color: var(--accent); }
 .lede { font: 1.15rem/1.62 var(--serif); color: var(--muted); margin: 0; max-width: 57ch; }
 .text-arrow { font: 700 .92rem/1.35 var(--sans); }
-.issue-feature { padding-top: clamp(30px, 4.9vw, 64px); }
+.journal-intro { display: flex; justify-content: space-between; gap: 15px 32px; align-items: baseline; padding-block: 18px; border-bottom: 1px solid var(--line); }
+.journal-intro p:last-child { color: var(--muted); font: .96rem/1.5 var(--serif); margin: 0; max-width: 59ch; }
+.issue-feature { padding-top: clamp(28px, 3.8vw, 48px); }
 .issue-label, .feature-meta { display: flex; gap: 9px 28px; flex-wrap: wrap; align-items: baseline; justify-content: space-between; }
 .issue-feature h1 { font-size: clamp(3rem, 6.4vw, 5.65rem); }
 .issue-feature h1 a, .article-list-item h3 a { color: var(--ink); text-decoration: none; }
@@ -93,7 +96,9 @@ figcaption { font: .88rem/1.45 var(--sans); color: var(--muted); }
 .home-sidebar { padding-left: 22px; border-left: 1px solid var(--line); }
 .home-sidebar h2, .about h2 { margin-top: .24em; }
 .mini-profile { display: block; width: min(100%, 270px); margin: .85rem 0 .6rem; color: var(--chart-line); }
-.about { border-top: 1px solid var(--line); margin-top: 45px; padding-top: 22px; }
+.about { position: relative; isolation: isolate; border-top: 1px solid var(--line); margin-top: 45px; padding-block: 28px 22px; padding-right: 240px; }
+.about::after { content: ''; position: absolute; z-index: -1; width: 210px; height: 210px; right: 0; top: 35px; background: url('brand/tuloma-mark-ink.svg') center / contain no-repeat; opacity: .075; pointer-events: none; }
+.about h2 { font-size: clamp(2rem, 3.4vw, 3rem); }
 .about p:not(.eyebrow) { max-width: 67ch; }
 .article-header { margin-left: calc(var(--rail-width) + var(--gutter)); padding-top: clamp(32px, 5vw, 66px); }
 .article-header h1 { max-width: 900px; font-size: clamp(3rem, 6vw, 5.35rem); }
@@ -279,6 +284,8 @@ blockquote p:last-child { margin-bottom: 0; }
 .source-details summary { cursor: pointer; padding: 7px 9px; font-size: .9rem; }
 .site-footer { border-top: 3px double var(--ink); margin-top: 60px; padding-block: 12px 24px; display: flex; justify-content: space-between; gap: 10px 18px; flex-wrap: wrap; color: var(--muted); font: .87rem/1.4 var(--sans); }
 .site-footer div { display: flex; gap: 5px 15px; flex-wrap: wrap; }
+.site-footer .footer-identity { display: grid; gap: 7px; }
+.footer-identity img { display: block; width: 148px; height: auto; }
 @media (max-width: 1000px) {
   .site-wrap { width: calc(100% - 58px); }
   :root { --rail-width: 125px; --note-width: 155px; --gutter: 22px; }
@@ -293,6 +300,10 @@ blockquote p:last-child { margin-bottom: 0; }
   .article-content { width: 100%; max-width: none; }
   .article-content .experiment-figure { width: 100%; }
   .sidenote { position: static; width: auto; margin: -.35em 0 1em; border-top: 0; border-left: 1px solid var(--line); padding: .2em .75em; }
+  .journal-intro { display: grid; gap: 7px; }
+  .brand-logo { width: 290px; }
+  .about { padding-right: 150px; }
+  .about::after { width: 130px; height: 130px; }
 }
 @media (max-width: 650px) {
   .figure-pair, .trace-plots { grid-template-columns: 1fr; }
@@ -300,8 +311,14 @@ blockquote p:last-child { margin-bottom: 0; }
   .node-choice { min-height: 40px; }
   .site-wrap { width: calc(100% - 30px); }
   .site-header { padding-top: 18px; padding-bottom: 12px; flex-wrap: wrap; align-items: start; gap: 10px 14px; }
-  .brand strong { font-size: 1.9rem; }
-  .top-nav { padding-top: 2px; }
+  .brand-logo { width: min(270px, 100%); }
+  .brand-description { font-size: .81rem; max-width: 340px; }
+  .top-nav { width: 100%; padding-top: 8px; gap: 12px 27px; }
+  .top-nav a { padding-block: 5px; }
+  .journal-intro { padding-block: 14px; }
+  .journal-intro p:last-child { font-size: .9rem; }
+  .about { padding-right: 0; }
+  .about::after { display: none; }
   .issue-feature h1, .article-header h1 { font-size: clamp(2.6rem, 10.5vw, 3.8rem); }
   .home-columns, .widget-shell, .model-grid { grid-template-columns: 1fr; }
   .home-sidebar { border-left: 0; border-top: 1px solid var(--line); padding: 13px 0 0; }

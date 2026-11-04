@@ -11,6 +11,21 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Вывод формул, доказательство точной проверки, псевдокод и воспроизводимый эксперимент на Python / NumPy.">
   <title>Почему вершина скрывает цель · Тулома</title>
+  <meta name="theme-color" content="#FAF7F2">
+  <meta property="og:site_name" content="Тулома">
+  <meta property="og:title" content="Почему вершина скрывает цель · Тулома">
+  <meta property="og:description" content="Вывод формул, доказательство точной проверки, псевдокод и воспроизводимый эксперимент на Python / NumPy.">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:image" content="https://tuloma-los-design.livelyfort.chatgpt.site/assets/brand/tuloma-social.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Тулома — авторский интерактивный журнал о математике геопространственных вычислений">
+  <link rel="icon" type="image/svg+xml" href="assets/brand/favicon.svg">
+  <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="assets/brand/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png">
+  <link rel="preload" href="assets/fonts/EB-Garamond.ttf" as="font" type="font/ttf" crossorigin="">
+  <link rel="preload" href="assets/fonts/PT-Serif.ttf" as="font" type="font/ttf" crossorigin="">
   <link rel="stylesheet" href="assets/style.css">
   <script type="module" src="assets/citations.js"></script>
   <script type="module" src="assets/lesson.js"></script>
@@ -18,10 +33,12 @@
 <body>
   <a href="#content" class="skip">К основному содержанию</a>
   <header class="site-header site-wrap">
-    <a class="brand" href="./" aria-label="Тулома, главная">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <span><strong>Тулома</strong><small>Журнал о геометрии пространства</small></span>
-    </a>
+    <div class="brand-block">
+      <a class="brand" href="./" aria-label="Тулома — главная">
+        <img class="brand-logo" src="assets/brand/tuloma-logo.svg" width="623" height="164" alt="Тулома" fetchpriority="high">
+      </a>
+      <p class="brand-description"><span>Авторский интерактивный журнал</span><span>о математике геопространственных вычислений</span></p>
+    </div>
     <nav class="top-nav" aria-label="Разделы журнала">
       <a href="./#articles">Статьи</a>
       <a href="laboratory.html">Лаборатория</a>
@@ -369,7 +386,7 @@
 <h2 id="pseudocode" class="anchored">От критерия к процедуре</h2>
 <p>Входом служат упорядоченные узлы <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>X</mi><mo>,</mo><mi>Z</mi></mrow><annotation encoding="application/x-tex">X,Z</annotation></semantics></math>, позиции <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>A</mi></msub><mo>,</mo><msub><mi>x</mi><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">x_A,x_B</annotation></semantics></math> и неотрицательные высоты <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>A</mi></msub><mo>,</mo><msub><mi>h</mi><mi>B</mi></msub></mrow><annotation encoding="application/x-tex">h_A,h_B</annotation></semantics></math>. Результат — один из трёх геометрических статусов. Одинаковые абсциссы отмечаем отдельным служебным результатом; их смысл разобран <a href="#vertical-case">ниже</a>.</p>
 <p>Последовательность такова: проверить данные, вычислить высоты концов, выбрать внутренние узлы, обработать пустой набор, затем найти максимум разности. Если нужен только факт перекрытия, можно закончить проверку при первом положительном значении. Нашему графику также нужны максимум и скрытые интервалы, поэтому реализация рассматривает весь выбранный участок.</p>
-<div id="alg-profile-los" class="algorithm" role="figure" data-algorithm-number="1" aria-labelledby="alg-profile-los-caption">
+<div id="alg-profile-los" class="algorithm" role="figure" aria-labelledby="alg-profile-los-caption" data-algorithm-number="1">
 <div id="alg-profile-los-caption" class="algorithm-caption">
 <strong>Алгоритм 1</strong> · Геометрическая классификация LOS в точной арифметике <a href="#alg-profile-los" class="algorithm-permalink" aria-label="Ссылка на алгоритм 1">§</a>
 </div>
@@ -401,7 +418,7 @@
 <div id="alg-profile-los-L5" class="algorithm-line">
 <a href="#alg-profile-los-L5" class="algorithm-line-number" aria-label="Строка 5">5</a>
 <div class="algorithm-statement" style="--depth: 1.0">
-<span class="algorithm-guide algorithm-guide-end" aria-hidden="true" style="--level: 1"></span><span><strong>Вернуть</strong> «Одинаковые абсциссы»</span>
+<span class="algorithm-guide algorithm-guide-end" style="--level: 1" aria-hidden="true"></span><span><strong>Вернуть</strong> «Одинаковые абсциссы»</span>
 </div>
 </div>
 <div id="alg-profile-los-L6" class="algorithm-line">
@@ -431,19 +448,19 @@
 <div id="alg-profile-los-L10" class="algorithm-line">
 <a href="#alg-profile-los-L10" class="algorithm-line-number" aria-label="Строка 10">10</a>
 <div class="algorithm-statement" style="--depth: 1.0">
-<span class="algorithm-guide" aria-hidden="true" style="--level: 1"></span><span><strong>Если</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>A</mi></msub><mo>=</mo><msub><mi>h</mi><mi>B</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h_A=h_B=0</annotation></semantics></math>:</span>
+<span class="algorithm-guide" style="--level: 1" aria-hidden="true"></span><span><strong>Если</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>A</mi></msub><mo>=</mo><msub><mi>h</mi><mi>B</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">h_A=h_B=0</annotation></semantics></math>:</span>
 </div>
 </div>
 <div id="alg-profile-los-L11" class="algorithm-line">
 <a href="#alg-profile-los-L11" class="algorithm-line-number" aria-label="Строка 11">11</a>
 <div class="algorithm-statement" style="--depth: 2.0">
-<span class="algorithm-guide" aria-hidden="true" style="--level: 1"></span><span class="algorithm-guide algorithm-guide-end" aria-hidden="true" style="--level: 2"></span><span><strong>Вернуть</strong> «Касание»</span>
+<span class="algorithm-guide" style="--level: 1" aria-hidden="true"></span><span class="algorithm-guide algorithm-guide-end" style="--level: 2" aria-hidden="true"></span><span><strong>Вернуть</strong> «Касание»</span>
 </div>
 </div>
 <div id="alg-profile-los-L12" class="algorithm-line">
 <a href="#alg-profile-los-L12" class="algorithm-line-number" aria-label="Строка 12">12</a>
 <div class="algorithm-statement" style="--depth: 1.0">
-<span class="algorithm-guide algorithm-guide-end" aria-hidden="true" style="--level: 1"></span><span><strong>Вернуть</strong> «Видна»</span>
+<span class="algorithm-guide algorithm-guide-end" style="--level: 1" aria-hidden="true"></span><span><strong>Вернуть</strong> «Видна»</span>
 </div>
 </div>
 <div id="alg-profile-los-L13" class="algorithm-line">
@@ -461,19 +478,19 @@
 <div id="alg-profile-los-L15" class="algorithm-line">
 <a href="#alg-profile-los-L15" class="algorithm-line-number" aria-label="Строка 15">15</a>
 <div class="algorithm-statement" style="--depth: 1.0">
-<span class="algorithm-guide" aria-hidden="true" style="--level: 1"></span><span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>i</mi></msub><mo>←</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><msub><mi>x</mi><mi>A</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>B</mi></msub><mo>−</mo><msub><mi>x</mi><mi>A</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t_i\gets(x_i-x_A)/(x_B-x_A)</annotation></semantics></math></span>
+<span class="algorithm-guide" style="--level: 1" aria-hidden="true"></span><span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>t</mi><mi>i</mi></msub><mo>←</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>i</mi></msub><mo>−</mo><msub><mi>x</mi><mi>A</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>x</mi><mi>B</mi></msub><mo>−</mo><msub><mi>x</mi><mi>A</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">t_i\gets(x_i-x_A)/(x_B-x_A)</annotation></semantics></math></span>
 </div>
 </div>
 <div id="alg-profile-los-L16" class="algorithm-line">
 <a href="#alg-profile-los-L16" class="algorithm-line-number" aria-label="Строка 16">16</a>
 <div class="algorithm-statement" style="--depth: 1.0">
-<span class="algorithm-guide" aria-hidden="true" style="--level: 1"></span><span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>i</mi></msub><mo>←</mo><msub><mi>z</mi><mi>i</mi></msub><mo>−</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>z</mi><mi>A</mi></msub><mo>+</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>z</mi><mi>B</mi></msub><mo>−</mo><msub><mi>z</mi><mi>A</mi></msub><mo stretchy="false" form="postfix">)</mo><msub><mi>t</mi><mi>i</mi></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d_i\gets z_i-\bigl(z_A+(z_B-z_A)t_i\bigr)</annotation></semantics></math></span>
+<span class="algorithm-guide" style="--level: 1" aria-hidden="true"></span><span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>i</mi></msub><mo>←</mo><msub><mi>z</mi><mi>i</mi></msub><mo>−</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">(</mo><msub><mi>z</mi><mi>A</mi></msub><mo>+</mo><mo stretchy="false" form="prefix">(</mo><msub><mi>z</mi><mi>B</mi></msub><mo>−</mo><msub><mi>z</mi><mi>A</mi></msub><mo stretchy="false" form="postfix">)</mo><msub><mi>t</mi><mi>i</mi></msub><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">d_i\gets z_i-\bigl(z_A+(z_B-z_A)t_i\bigr)</annotation></semantics></math></span>
 </div>
 </div>
 <div id="alg-profile-los-L17" class="algorithm-line">
 <a href="#alg-profile-los-L17" class="algorithm-line-number" aria-label="Строка 17">17</a>
 <div class="algorithm-statement" style="--depth: 1.0">
-<span class="algorithm-guide algorithm-guide-end" aria-hidden="true" style="--level: 1"></span><span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>←</mo><mrow><mi mathvariant="normal">max</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo>,</mo><msub><mi>d</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M\gets\max(M,d_i)</annotation></semantics></math></span>
+<span class="algorithm-guide algorithm-guide-end" style="--level: 1" aria-hidden="true"></span><span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>M</mi><mo>←</mo><mrow><mi mathvariant="normal">max</mi><mo>⁡</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>M</mi><mo>,</mo><msub><mi>d</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">M\gets\max(M,d_i)</annotation></semantics></math></span>
 </div>
 </div>
 <div id="alg-profile-los-L18" class="algorithm-line">
@@ -485,7 +502,7 @@
 <div id="alg-profile-los-L19" class="algorithm-line">
 <a href="#alg-profile-los-L19" class="algorithm-line-number" aria-label="Строка 19">19</a>
 <div class="algorithm-statement" style="--depth: 1.0">
-<span class="algorithm-guide algorithm-guide-end" aria-hidden="true" style="--level: 1"></span><span><strong>Вернуть</strong> «Скрыта»</span>
+<span class="algorithm-guide algorithm-guide-end" style="--level: 1" aria-hidden="true"></span><span><strong>Вернуть</strong> «Скрыта»</span>
 </div>
 </div>
 <div id="alg-profile-los-L20" class="algorithm-line">
@@ -497,7 +514,7 @@
 <div id="alg-profile-los-L21" class="algorithm-line">
 <a href="#alg-profile-los-L21" class="algorithm-line-number" aria-label="Строка 21">21</a>
 <div class="algorithm-statement" style="--depth: 1.0">
-<span class="algorithm-guide algorithm-guide-end" aria-hidden="true" style="--level: 1"></span><span><strong>Вернуть</strong> «Касание»</span>
+<span class="algorithm-guide algorithm-guide-end" style="--level: 1" aria-hidden="true"></span><span><strong>Вернуть</strong> «Касание»</span>
 </div>
 </div>
 <div id="alg-profile-los-L22" class="algorithm-line">
@@ -712,7 +729,7 @@
 <p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mtext mathvariant="normal">выход</mtext></msub><mo>=</mo><mn>40</mn><mo>+</mo><mn>3</mn><mfrac><mn>6</mn><mrow><mn>6</mn><mo>−</mo><mo stretchy="false" form="prefix">(</mo><mi>−</mi><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo>=</mo><mfrac><mn>298</mn><mn>7</mn></mfrac><mo>≈</mo><mn>42</mn><mo>,</mo><mn>571</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> м</mtext></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">x_{\text{выход}}=40+3\frac{6}{6-(-1)}=\frac{298}{7}\approx42{,}571\text{ м}.</annotation></semantics></math></p>
 </div>
 <p>Линия находится внутри грунта при <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>106</mn><mi>/</mi><mn>3</mn><mo>&lt;</mo><mi>x</mi><mo>&lt;</mo><mn>298</mn><mi>/</mi><mn>7</mn></mrow><annotation encoding="application/x-tex">106/3&lt;x&lt;298/7</annotation></semantics></math>. На границах она лежит на поверхности. Рисовать участок можно от корня до корня, понимая, что строгому условию <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>d</mi><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d&gt;0</annotation></semantics></math> отвечают его внутренние точки.</p>
-<div id="alg-below" class="algorithm" role="figure" data-algorithm-number="2" aria-labelledby="alg-below-caption">
+<div id="alg-below" class="algorithm" role="figure" aria-labelledby="alg-below-caption" data-algorithm-number="2">
 <div id="alg-below-caption" class="algorithm-caption">
 <strong>Алгоритм 2</strong> · Границы частей луча под рельефом <a href="#alg-below" class="algorithm-permalink" aria-label="Ссылка на алгоритм 2">§</a>
 </div>
@@ -738,49 +755,49 @@
 <div id="alg-below-L4" class="algorithm-line">
 <a href="#alg-below-L4" class="algorithm-line-number" aria-label="Строка 4">4</a>
 <div class="algorithm-statement" style="--depth: 1.0">
-<span class="algorithm-guide" aria-hidden="true" style="--level: 1"></span><span><strong>Если</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>a</mi></msub><mo>≤</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d_a\le0</annotation></semantics></math> и <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>b</mi></msub><mo>≤</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d_b\le0</annotation></semantics></math>:</span>
+<span class="algorithm-guide" style="--level: 1" aria-hidden="true"></span><span><strong>Если</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>a</mi></msub><mo>≤</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d_a\le0</annotation></semantics></math> и <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>b</mi></msub><mo>≤</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d_b\le0</annotation></semantics></math>:</span>
 </div>
 </div>
 <div id="alg-below-L5" class="algorithm-line">
 <a href="#alg-below-L5" class="algorithm-line-number" aria-label="Строка 5">5</a>
 <div class="algorithm-statement" style="--depth: 2.0">
-<span class="algorithm-guide" aria-hidden="true" style="--level: 1"></span><span class="algorithm-guide algorithm-guide-end" aria-hidden="true" style="--level: 2"></span><span><strong>Продолжить</strong></span>
+<span class="algorithm-guide" style="--level: 1" aria-hidden="true"></span><span class="algorithm-guide algorithm-guide-end" style="--level: 2" aria-hidden="true"></span><span><strong>Продолжить</strong></span>
 </div>
 </div>
 <div id="alg-below-L6" class="algorithm-line">
 <a href="#alg-below-L6" class="algorithm-line-number" aria-label="Строка 6">6</a>
 <div class="algorithm-statement" style="--depth: 1.0">
-<span class="algorithm-guide" aria-hidden="true" style="--level: 1"></span><span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mo>←</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">\ell\gets a</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>←</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">r\gets b</annotation></semantics></math></span>
+<span class="algorithm-guide" style="--level: 1" aria-hidden="true"></span><span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mo>←</mo><mi>a</mi></mrow><annotation encoding="application/x-tex">\ell\gets a</annotation></semantics></math>, <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>←</mo><mi>b</mi></mrow><annotation encoding="application/x-tex">r\gets b</annotation></semantics></math></span>
 </div>
 </div>
 <div id="alg-below-L7" class="algorithm-line">
 <a href="#alg-below-L7" class="algorithm-line-number" aria-label="Строка 7">7</a>
 <div class="algorithm-statement" style="--depth: 1.0">
-<span class="algorithm-guide" aria-hidden="true" style="--level: 1"></span><span><strong>Если</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>a</mi></msub><mo>≤</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d_a\le0</annotation></semantics></math>:</span>
+<span class="algorithm-guide" style="--level: 1" aria-hidden="true"></span><span><strong>Если</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>a</mi></msub><mo>≤</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d_a\le0</annotation></semantics></math>:</span>
 </div>
 </div>
 <div id="alg-below-L8" class="algorithm-line">
 <a href="#alg-below-L8" class="algorithm-line-number" aria-label="Строка 8">8</a>
 <div class="algorithm-statement" style="--depth: 2.0">
-<span class="algorithm-guide" aria-hidden="true" style="--level: 1"></span><span class="algorithm-guide algorithm-guide-end" aria-hidden="true" style="--level: 2"></span><span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mo>←</mo><mi>a</mi><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo>−</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><msub><mi>d</mi><mi>a</mi></msub><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>d</mi><mi>a</mi></msub><mo>−</mo><msub><mi>d</mi><mi>b</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\ell\gets a+(b-a)d_a/(d_a-d_b)</annotation></semantics></math></span>
+<span class="algorithm-guide" style="--level: 1" aria-hidden="true"></span><span class="algorithm-guide algorithm-guide-end" style="--level: 2" aria-hidden="true"></span><span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mo>←</mo><mi>a</mi><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo>−</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><msub><mi>d</mi><mi>a</mi></msub><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>d</mi><mi>a</mi></msub><mo>−</mo><msub><mi>d</mi><mi>b</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\ell\gets a+(b-a)d_a/(d_a-d_b)</annotation></semantics></math></span>
 </div>
 </div>
 <div id="alg-below-L9" class="algorithm-line">
 <a href="#alg-below-L9" class="algorithm-line-number" aria-label="Строка 9">9</a>
 <div class="algorithm-statement" style="--depth: 1.0">
-<span class="algorithm-guide" aria-hidden="true" style="--level: 1"></span><span><strong>Иначе если</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>b</mi></msub><mo>≤</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d_b\le0</annotation></semantics></math>:</span>
+<span class="algorithm-guide" style="--level: 1" aria-hidden="true"></span><span><strong>Иначе если</strong> <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>b</mi></msub><mo>≤</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d_b\le0</annotation></semantics></math>:</span>
 </div>
 </div>
 <div id="alg-below-L10" class="algorithm-line">
 <a href="#alg-below-L10" class="algorithm-line-number" aria-label="Строка 10">10</a>
 <div class="algorithm-statement" style="--depth: 2.0">
-<span class="algorithm-guide" aria-hidden="true" style="--level: 1"></span><span class="algorithm-guide algorithm-guide-end" aria-hidden="true" style="--level: 2"></span><span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>←</mo><mi>a</mi><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo>−</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><msub><mi>d</mi><mi>a</mi></msub><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>d</mi><mi>a</mi></msub><mo>−</mo><msub><mi>d</mi><mi>b</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r\gets a+(b-a)d_a/(d_a-d_b)</annotation></semantics></math></span>
+<span class="algorithm-guide" style="--level: 1" aria-hidden="true"></span><span class="algorithm-guide algorithm-guide-end" style="--level: 2" aria-hidden="true"></span><span><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mo>←</mo><mi>a</mi><mo>+</mo><mo stretchy="false" form="prefix">(</mo><mi>b</mi><mo>−</mo><mi>a</mi><mo stretchy="false" form="postfix">)</mo><msub><mi>d</mi><mi>a</mi></msub><mi>/</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>d</mi><mi>a</mi></msub><mo>−</mo><msub><mi>d</mi><mi>b</mi></msub><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">r\gets a+(b-a)d_a/(d_a-d_b)</annotation></semantics></math></span>
 </div>
 </div>
 <div id="alg-below-L11" class="algorithm-line">
 <a href="#alg-below-L11" class="algorithm-line-number" aria-label="Строка 11">11</a>
 <div class="algorithm-statement" style="--depth: 1.0">
-<span class="algorithm-guide algorithm-guide-end" aria-hidden="true" style="--level: 1"></span><span>Добавить границы <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mo>,</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">\ell,r</annotation></semantics></math>; объединить с предыдущим при общей границе и <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>a</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d_a&gt;0</annotation></semantics></math></span>
+<span class="algorithm-guide algorithm-guide-end" style="--level: 1" aria-hidden="true"></span><span>Добавить границы <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ℓ</mi><mo>,</mo><mi>r</mi></mrow><annotation encoding="application/x-tex">\ell,r</annotation></semantics></math>; объединить с предыдущим при общей границе и <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>d</mi><mi>a</mi></msub><mo>&gt;</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">d_a&gt;0</annotation></semantics></math></span>
 </div>
 </div>
 <div id="alg-below-L12" class="algorithm-line">
@@ -1223,7 +1240,7 @@ if __name__ == &quot;__main__&quot;:
     </article>
   </main>
   <footer class="site-footer site-wrap">
-    <div><a href="./">Тулома</a><span>Журнал о геометрии пространства</span></div><a href="#content">Наверх ↑</a>
+    <div class="footer-identity"><a href="./" aria-label="Тулома — главная"><img src="assets/brand/tuloma-logo-ink.svg" width="623" height="164" alt="Тулома" loading="lazy"></a><span>Авторский научно-познавательный журнал</span></div><a href="#content">Наверх ↑</a>
   </footer>
 
 

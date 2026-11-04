@@ -4,7 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="$description$">
-  <title>$title$$if(is-home)$ · Журнал о геометрии пространства$else$ · Тулома$endif$</title>
+  <title>$title$$if(is-home)$ · Геометрия, карты и алгоритмы$else$ · Тулома$endif$</title>
+  <meta name="theme-color" content="#FAF7F2">
+  <meta property="og:site_name" content="Тулома">
+  <meta property="og:title" content="$title$$if(is-home)$ · Геометрия, карты и алгоритмы$else$ · Тулома$endif$">
+  <meta property="og:description" content="$description$">
+  <meta property="og:type" content="$if(is-article)$article$else$website$endif$">
+  <meta property="og:locale" content="ru_RU">
+$if(site-origin)$
+  <meta property="og:image" content="$site-origin$/assets/brand/tuloma-social.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Тулома — авторский интерактивный журнал о математике геопространственных вычислений">
+$endif$
+  <link rel="icon" type="image/svg+xml" href="assets/brand/favicon.svg">
+  <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="assets/brand/favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/brand/apple-touch-icon.png">
+  <link rel="preload" href="assets/fonts/EB-Garamond.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/fonts/PT-Serif.ttf" as="font" type="font/ttf" crossorigin>
   <link rel="stylesheet" href="assets/style.css">
 $if(is-article)$
   <script type="module" src="assets/citations.js"></script>
@@ -21,12 +38,14 @@ $endif$
 <body>
   <a href="#content" class="skip">К основному содержанию</a>
   <header class="site-header site-wrap">
-    <a class="brand" href="./" aria-label="Тулома, главная">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <span><strong>Тулома</strong><small>Журнал о геометрии пространства</small></span>
-    </a>
+    <div class="brand-block">
+      <a class="brand" href="./" aria-label="Тулома — главная">
+        <img class="brand-logo" src="assets/brand/tuloma-logo.svg" width="623" height="164" alt="Тулома" fetchpriority="high">
+      </a>
+      <p class="brand-description"><span>Авторский интерактивный журнал</span><span>о математике геопространственных вычислений</span></p>
+    </div>
     <nav class="top-nav" aria-label="Разделы журнала">
-      <a href="./#articles">Статьи</a>
+      <a href="./#articles"$if(is-home)$ aria-current="page"$endif$>Статьи</a>
       <a href="laboratory.html"$if(is-lab)$ aria-current="page"$endif$>Лаборатория</a>
       <a href="./#about">О журнале</a>
     </nav>
@@ -81,7 +100,7 @@ $body$
 $endif$
   </main>
   <footer class="site-footer site-wrap">
-    <div><a href="./">Тулома</a><span>Журнал о геометрии пространства</span></div><a href="#content">Наверх ↑</a>
+    <div class="footer-identity"><a href="./" aria-label="Тулома — главная"><img src="assets/brand/tuloma-logo-ink.svg" width="623" height="164" alt="Тулома" loading="lazy"></a><span>Авторский научно-познавательный журнал</span></div><a href="#content">Наверх ↑</a>
   </footer>
 </body>
 </html>
