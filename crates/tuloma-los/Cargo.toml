@@ -1,0 +1,10 @@
+[package]
+name = "tuloma-los"
+description = "Low-level geometric LOS contracts; algorithms intentionally unimplemented"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+
+[lib]
+path = "src/lib.rs"

@@ -1,0 +1,14 @@
+[workspace]
+members = ["crates/tuloma-los", "packages/tuloma"]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+repository = "https://github.com/likern/tuloma"
+
+[workspace.dependencies]
+tuloma-los = { path = "crates/tuloma-los", version = "0.1.0" }
+numpy = "=0.30.0"
+pyo3 = "=0.30.1"

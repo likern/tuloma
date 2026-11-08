@@ -4,3 +4,13 @@ __pycache__/
 /.quarto/
 **/*.quarto_ipynb
 .venv/
+.venv-wasm/
+target/
+dist/
+.cache/
+*.egg-info/
+.pytest_cache/
+node_modules/
+apps/journal/assets/los.py
+apps/journal/assets/native-smoke.py
+apps/journal/assets/wheels/
