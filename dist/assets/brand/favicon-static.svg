@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
-<title id="title">Тулома</title>
-<desc id="desc">Малая иконка на светлой подложке.</desc>
-<rect width="128" height="128" rx="24" fill="#FAF7F2"/><g fill="none" stroke="#22262B" stroke-width="7.2" stroke-linecap="round" stroke-linejoin="round"><path d="M 72,10 C 55,7 47,19 37,32 C 28,44 14,48 8,62 C 1,79 14,90 32,96 C 49,102 71,119 89,118 C 108,119 119,105 115,88 C 112,74 106,64 106,49 C 106,30 89,13 72,10 Z"/><path d="M 69,54 C 61,51 55,59 49,63 C 42,67 38,70 42,76 C 45,80 56,80 65,83 C 74,86 85,91 86,81 C 86,73 77,57 69,54 Z"/></g><circle cx="98.2631" cy="27.0075" r="8" fill="#A3472B"/>
-</svg>

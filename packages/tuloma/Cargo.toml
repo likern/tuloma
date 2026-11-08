@@ -1,0 +1,16 @@
+[package]
+name = "tuloma-python"
+description = "NumPy/PyO3 bindings for the Tuloma LOS scaffold"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+
+[lib]
+name = "_los"
+crate-type = ["cdylib"]
+
+[dependencies]
+tuloma-los.workspace = true
+numpy.workspace = true
+pyo3 = { workspace = true, features = ["macros"] }

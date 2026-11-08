@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ru"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Тулома: проверка Rust-модуля в Pyodide</title>
+<style>body{max-width:850px;margin:60px auto;padding:0 24px;font:17px/1.6 system-ui;background:#faf7f2;color:#22262b}button{padding:12px 20px;font:inherit}pre{white-space:pre-wrap;overflow-wrap:anywhere;padding:20px;background:#eee9df}a{color:#2f5d8a}</style>
+<h1>Проверка Rust-модуля в браузере</h1>
+<p>Проверяет импорт PyO3/WASM, конструктор сцены и общую память NumPy.
+Геометрические методы пока должны возвращать <code>NotImplementedError</code>.</p>
+<button id="run">Запустить проверку</button>
+<pre id="status" role="status" data-status="idle">Сначала соберите WASM wheel по инструкции tools/browser/README.md.</pre>
+<p><a href="los.html">Вернуться к статье</a></p>
+<script type="module">
+const button = document.querySelector('#run'), status = document.querySelector('#status');
+let worker;
+button.onclick = async () => {
+  button.disabled = true;
+  status.dataset.status = 'running';
+  status.textContent = 'Загрузка Pyodide и Rust-модуля…';
+  try {
+    const response = await fetch('assets/native-smoke.py');
+    if (!response.ok) throw new Error('Сначала выполните tools/browser/build.sh и ./build.sh.');
+    worker?.terminate();
+    worker = new Worker('assets/worker.js');
+    worker.onmessage = ({data}) => {
+      const ok = !data.error && data.result?.ok === true;
+      status.dataset.status = ok ? 'passed' : 'failed';
+      status.textContent = data.error || [...(data.log || []), JSON.stringify(data.result, null, 2)].join('\n');
+      button.disabled = false;
+      worker.terminate();
+    };
+    worker.onerror = event => { status.dataset.status = 'failed'; status.textContent = event.message; button.disabled = false; worker.terminate(); };
+    worker.postMessage({id:1,kind:'run',code:await response.text()});
+  } catch(error) {
+    status.dataset.status = 'failed'; status.textContent = String(error); button.disabled = false;
+  }
+};
+</script></html>
