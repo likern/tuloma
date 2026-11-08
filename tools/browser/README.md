@@ -34,7 +34,10 @@ python -m pip install -r tools/browser/requirements.txt
 Нужен установленный rustup. Скрипт загружает cross-build environment,
 Emscripten SDK и конкретный Rust toolchain/sysroot в пользовательские кеши.
 `PYODIDE_XBUILDENV_PATH` можно задать явно; default - `.cache/pyodide`.
-Архив Rust sysroot кешируется в `.cache/sysroots` и каждый раз проверяется по SHA-256.
+Архивы xbuildenv и Rust sysroot загружаются через официальный GitHub asset API
+с резервным release URL, кешируются в `.cache/upstream` и каждый раз проверяются
+по зафиксированным SHA-256. Для установки xbuildenv используется штатный `--url`
+с локальным проверенным архивом; имя каталога кеша задаётся самим pyodide-build.
 Wheel создаётся в `.cache/wasm-wheels`; stage.py копирует его в генерируемый
 `apps/journal/assets/wheels` вместе с manifest и SHA-256. Нативный wheel
 не принимается этим скриптом. Сгенерированные бинарники не коммитятся.
