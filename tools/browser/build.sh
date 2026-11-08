@@ -7,7 +7,7 @@ if [[ "$(python -c 'import sys; print(f"{sys.version_info.major}.{sys.version_in
   exit 1
 fi
 export PYODIDE_XBUILDENV_PATH="${PYODIDE_XBUILDENV_PATH:-$root/.cache/pyodide}"
-pyodide xbuildenv install 0.29.4
+python tools/browser/install-xbuildenv.py
 pyodide xbuildenv install-emscripten
 python tools/browser/install-sysroot.py
 export RUSTUP_TOOLCHAIN=nightly-2025-02-01
